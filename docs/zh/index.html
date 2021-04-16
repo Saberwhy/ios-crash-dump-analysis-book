@@ -16,6 +16,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -379,7 +380,7 @@
 <p>那时的计算机技术已经得到了长足的发展，但是现有的解决方案已经在新方向和网络上得到使用。斯坦福大学科研中心基于 Unix 系统研制的 SunOS 操作系统现在运行在 E-Bay 上，并且运行得很好。</p>
 <p>我们有一个电子屏幕，显示了关键客户的系统运行状态。沙特阿美公司的红色灯一直亮着，以至于我们怀疑这是否是董事会本身的错。</p>
 <p>我在 Sun 的第一天有些失落。我甚至都没有自己的隔间。我的办公桌看起来像是学校的书桌。我的键盘有几个故障或无效的按键。第一天我坐在一个巨大的办公室（”立方体农场“）的一个角落，却不清楚到底是哪个角落。午餐后，我走了很长一段路后回到了我角落的办公桌。</p>
-<p>让我惊讶的是，大约 1/4 之一的开发者的办公桌上都放了一本书。书的封面上写着，“Panic!”<span class="citation" data-cites="panicbook">(<em>Panic! Unix System Crash Dump Analysis</em> 1995)</span>。这是一本关于 SunOS crash dump 分析的书。</p>
+<p>让我惊讶的是，大约 1/4 之一的开发者的办公桌上都放了一本书。书的封面上写着，“Panic!”<span class="citation" data-cites="panicbook">@panicbook</span>。这是一本关于 SunOS crash dump 分析的书。</p>
 <p>当我拥有了自己的隔间并认识了我的同事之后，我注意到那些带着 《Panic!》的工程师们。这本书似乎在处理客户反馈的某些底层问题方面具有额外的优势。总的来说，他提升了 Sun 公司客服中心解决 IQ 问题的效率。</p>
 <p>在 Sun，有一种深厚的学习文化。我们经常接受如此广泛的培训和支持，通常情况下，我们每年要进行七门课程，每门课程周期为一周。</p>
 <p>一切都很好，直到那一堂课。它被称为分析故障排除（ATS）。这在客服中心引起了极大的争议。这是解决问题的一种正式方法。这门课并没有教会你答案是什么，而是确保你能够提出正确的问题。事实证明，在我们最棘手的问题上，我们缺少提出正确问题的能力。</p>
@@ -487,17 +488,17 @@
 <p>操作环境通过某些规则来保障用户的环境安全性、数据安全性、性能和隐私性。</p>
 <h3 id="nil-处理示例">Nil 处理示例</h3>
 <p>Apple 生态系统的新手常常惊讶地发现，Objective-C 允许我们向 nil 对象发送消息。它默默地忽略了失败的调用。例如，以下方法可以运行正常。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode objectivec"><code class="sourceCode objectivec"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>- (<span class="dt">void</span>)nilDispatchDoesNothing</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>{</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    NSString *error = NULL;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    assert([error length] == <span class="dv">0</span>);</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode objectivec"><code class="sourceCode objectivec"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> <span class="op">(</span><span class="dt">void</span><span class="op">)</span>nilDispatchDoesNothing</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    NSString <span class="op">*</span>error <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">([</span>error length<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Objective-C 运行时的开发者做出了一个判断，并认为应用程序最好忽略这些问题。</p>
 <p>但是，如果我们引用了一个 C 指针，应用程序就会发生崩溃。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">void</span> nullDereferenceCrash() {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="dt">char</span> *nullPointer = NULL;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    assert(strlen(nullPointer) == <span class="dv">0</span>);</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> nullDereferenceCrash<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>nullPointer <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>strlen<span class="op">(</span>nullPointer<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>操作系统的开发者为了避免对空指针地址或更底层的内存地址的非法访问，所以中断了应用程序。</p>
 <p>操作系统将此内存区域留出，因为它表示未正确设置对象或数据结构的编程错误。</p>
 <p>当出现问题时，我们并不总是会崩溃。 只有它违反运行环境的规则，应用程序才会发生崩溃。</p>
@@ -621,7 +622,7 @@ Message from debugger: Terminated due to signal 9</code></pre>
 <p><code>class-dump</code> 工具允许我们查看给定程序中的 Objective C 类、方法和属性。</p>
 <h2 id="第三方工具手机崩溃报告">第三方工具手机崩溃报告</h2>
 <p>虽然 iTunes Connect 中的 Apple Crash Reporter 工具非常的出色，但是仍有改进空间。</p>
-<p>一个强大的开源软件，由 Plausible Labs 的 Landon Fuller 所编写 <a href="https://github.com/microsoft/plcrashreporter">plcrashreporter</a>。<span class="citation" data-cites="plcrashreporter">(“Plausible Labs Crash Reporter” 2018)</span></p>
+<p>一个强大的开源软件，由 Plausible Labs 的 Landon Fuller 所编写 <a href="https://github.com/microsoft/plcrashreporter">plcrashreporter</a>。<span class="citation" data-cites="plcrashreporter">@plcrashreporter</span></p>
 <p>我们想让我们的应用程序能够尽可能的处理发生的所有可能的信号和异常，一旦应用程序将无法实现，从而导致底层操作系统触发崩溃。</p>
 <p>通过这个工具，可以记录崩溃信息，然后传输到我们自己的服务器上。</p>
 <p>这有两个好处。首先，崩溃处理程序可以处理 Apple <code>ReportCrash</code> 工具尚未处理的边缘情况。其次，可以采用更全面的服务器端解决方案。</p>
@@ -629,7 +630,7 @@ Message from debugger: Terminated due to signal 9</code></pre>
 <p>当公司拥有许多应用程序，许多应用程序变体，并且拥有基于 Android 等其他平台的应用程序时，就需要更强大的多平台解决方案。处理崩溃报告很快就会成为一种管理问题。哪个崩溃最严重？有多少客户受到影响？质量和稳定性的指标是什么？</p>
 <p>有许多可用的商业解决方案，都主要基于上述开源项目。</p>
 <p>移动软件开发领域在过去几年已经发展成为一个大产业。许多专业公司为 App 开发者提供专业的服务。该领域在合并和收购方面非常活跃。由于这个行业的变化之快，我们没办法在本书中列举这些专业公司的名称。</p>
-<p>阅读 <code>rollout.io</code> 的博客是一个好的开始，它介绍了市场上的竞争者们。<span class="citation" data-cites="3rdpartycrashtools">(“IOS Crash Reporting Tools” 2017)</span></p>
+<p>阅读 <code>rollout.io</code> 的博客是一个好的开始，它介绍了市场上的竞争者们。<span class="citation" data-cites="3rdpartycrashtools">@3rdpartycrashtools</span></p>
 <h1 id="xcode-内置工具">Xcode 内置工具</h1>
 <p>Xcode为开发人员在理解和预防崩溃方面提供了重要的帮助。</p>
 <p>Xcode 给我们提供了两个层面的帮助，对于简单的现象，Xcode 会直接告诉我们常见的错误并建议我们更正，而对于复杂情况，Xcode 会为我们提供原始的信息，但是这需要我们利用操作系统的相关知识来解释这些信息。</p>
@@ -880,7 +881,7 @@ double plutos_to_fill_jupiter
 <p>这里的经验是崩溃可能来自特殊情况处理。由于不同的语言和框架以它们自己惯用的方式处理特殊的情况，因此如果可能的话，将代码分离出来并使用一个特定的外观来保持各种范式清晰分离是比较安全的。</p>
 <h1 id="符号化">符号化</h1>
 <p>本章介绍了 crash dump 的符号化。符号化是将机器地址映射成对拥有源代码的程序员有意义的符号地址的过程。我们希望尽可能看到函数名（加上任何偏移量），而不是看到机器地址。</p>
-<p>我们使用 <code>icdab_planets</code> 示例应用程序来演示崩溃。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>我们使用 <code>icdab_planets</code> 示例应用程序来演示崩溃。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <p>当处理真实的崩溃时，一般会涉及到很多不同的关联数据。这些数据可以来自用户终端，通过设置允许将崩溃报告上传到 Apple 的终端设备，Apple 拥有的符号信息和我们本地开发环境的配置信息可以相互映射。</p>
 <p>为了理解所有信息是如何组合在一起的，最好从一开始开始就自己完成数据转化任务，因此一旦我们需要诊断符号化问题，我们就已有一定的技术经验。</p>
 <h2 id="构建过程">构建过程</h2>
@@ -985,28 +986,28 @@ icdab_planets -l 0x1008e0000 0x00000001008e45bc
 -[PlanetViewController viewDidLoad] (in icdab_planets)
  (PlanetViewController.mm:33)</code></pre>
 <p>崩溃报告工具基本上就是使用 <code>atos</code>命令来符号化崩溃报告，以及提供其他与系统相关的信息。</p>
-<p>如果想要更加深入的了解符号化过程我们可以通过 Apple Technote 来获取其进一步的描述。<span class="citation" data-cites="tn2123">(“CrashReport Technote 2123” 2004)</span></p>
+<p>如果想要更加深入的了解符号化过程我们可以通过 Apple Technote 来获取其进一步的描述。<span class="citation" data-cites="tn2123">@tn2123</span></p>
 <h2 id="逆向工程方法">逆向工程方法</h2>
 <p>在上面的例子中，我们具有crash dump 的源代码和符号，因此可以执行符号化。</p>
-<p>但是有时在我们的项目中，包含了第三方的二进制框架，我们并没有源代码。如果框架提供者提供了相应的符号信息让用户可以进行 crash dump 分析，这当然是很好的。但是当符号信息不可用时，我们仍然可以通过一些逆向工程的手段来取得进展。</p>
+<p>但是有时在我们的项目中，包含了第三方的二进制框架，而我们并没有源代码。如果框架提供者提供了相应的符号信息让用户可以进行 crash dump 分析，这当然是很好的。但是当符号信息不可用时，我们仍然可以通过一些逆向工程的手段来取得进展。</p>
 <p>与第三方合作时，故障的诊断和排查通常需要更多的时间。我们发现良好的编写且具体的错误报告可以加速很多事情。以下方法可以为你提供所需的特定信息。</p>
 <p>我们将使用工具一章中提到的 Hopper 工具来演示我们的方法。</p>
-<p>启动 hopper，选择 <em>File-&gt;Read Executable to Disassemble</em>。我们使用 <code>examples/assert_crash_ios/icdab_planets</code>中的二进制文件作为示例。</p>
-<p>我们需要 “rebase” 反汇编程序，以便它在崩溃时显示的地址与程序的地址相同。选择 <code>Modify-&gt;Change File Base Address</code>。为了保持一致，输入 <code>0x1008E0000</code>。</p>
-<p>现在我们可以看到崩溃代码了。地址 <code>0x00000001008e45bc</code> 实际上是设备在跟踪堆栈中执行函数调用后将 <em>return</em> 到的地址。尽管如此，它仍被记录在此。选择 <code>Navigate-&gt; Go To Address and Symbol</code> 并输入 <code>0x00000001008e45bc</code> 。</p>
+<p>启动 hopper，选择 <em>File-&gt;Read Executable to Disassemble</em>。我们使用 <code>examples/assert_crash_ios/icdab_planets</code> 中的二进制文件作为示例。</p>
+<p>我们需要 “rebase” 反汇编程序，以便它在崩溃时显示的地址与程序的地址相同。选择 <code>Modify-&gt;Change File Base Address</code>。为了保持一致，输入 <code>0x104544000</code>。</p>
+<p>现在我们就可以看到崩溃代码了。地址 <code>0x00000001045490f0</code> 实际上是设备在跟踪堆栈中执行函数调用后将 <em>return</em> 到的地址。尽管如此，它仍被记录在此。选择 <code>Navigate-&gt; Go To Address and Symbol</code> 并输入 <code>0x00000001045490f0</code> 。</p>
 <p>我们看到的总体会如下所示</p>
 <p><img src="screenshots/hopperAddressView.png" /></p>
 <p>放大这一行，我们能看到</p>
 <p><img src="screenshots/hopperPlanetAbort.png" /></p>
-<p>这确实显示了 assert 方法的返回地址。再往上看，我们看到判断了 Pluto 的体积不能为零。这只是 Hopper 非常基本的使用示例。接下来我们将使用 Hopper 演示其最有趣的功能——将汇编代码生成伪代码。这降低了理解崩溃的心理负担。如今，大多数开发人员很少查看汇编代码，所以就这个功能就值得我们为该软件付出代价。</p>
+<p>这确实显示了 <code>assert</code> 方法的返回地址。再往上看，我们看到判断了 Pluto 的体积不能为零。这只是 Hopper 非常基本的使用示例。接下来我们将使用 Hopper 演示其最有趣的功能——将汇编代码生成伪代码。这降低了理解崩溃的心理负担。如今，大多数开发人员很少查看汇编代码，当当这个功能就值得我们为该软件付出代价。</p>
 <p>现在至少对于当前的问题吗，我们可以编写一个错误报告，指明由于 Pluto 的体积为零，导致代码崩溃了。对框架的提供者来说，这就足以解决问题了。</p>
-<p>在更复杂的情况下，想象我们使用了一个发生崩溃的图片转换库。图片可能有多种像素格式。使用 <code>assert</code> 可以让我们注意到某些特定的像素格式。因此，我们可以尝试其他的像素格式。</p>
-<p>另一个例子是 security 库。安全代码通常会返回通用错误代码，而不是特定的故障代码，以便将来进行代码增强并避免泄漏内部细节（安全风险）。安全库中的 crash dump 程序可能会指出安全问题的类型，并帮助我们更早地更正传递到库中的某些数据结构。</p>
+<p>在更复杂的情况下，想象我们使用了一个发生崩溃的图片转换库。图片可能有多种格式。使用 <code>assert</code> 可以让我们注意到某些特定的格式。因此，我们可以尝试其他的图片格式。</p>
+<p>另一个例子是 <code>security</code> 库。安全代码通常会返回通用错误代码，而不是特定的故障代码，以便将来进行代码增强并避免泄漏内部细节（安全风险）。安全库中的 crash dump 程序可能会指出安全问题的类型，并帮助我们纠正早些时候传递到库中的某些数据结构。</p>
 <h1 id="系统诊断">系统诊断</h1>
 <p>崩溃报告仅仅是更大的系统诊断报告的一部分。</p>
 <p>一般来说，作为应用程序的开发人员，我们并不需要再深入研究。但是，如果我们的问题可能是由一系列无法解释的事件或更加复杂的系统与硬件或 Apple 提供的系统服务的交互而引发的话，那么我们不仅需要查看崩溃报告，还需要研究系统诊断信息。</p>
 <h2 id="提取系统诊断信息">提取系统诊断信息</h2>
-<p>在我们复现崩溃环境时，我们可能需要安装移动设备管理配置文件（以打开某些调试子系统），或创建虚拟网络接口（用于网络嗅探）。苹果提供了一个涵盖每个场景的网页。<span class="citation" data-cites="apple-sysdiag">(“Diagnostic Profiles and Logs” 2018)</span></p>
+<p>在我们复现崩溃环境时，我们可能需要安装移动设备管理配置文件（以打开某些调试子系统），或创建虚拟网络接口（用于网络嗅探）。苹果提供了一个涵盖每个场景的网页。<span class="citation" data-cites="apple-sysdiag">@apple-sysdiag</span></p>
 <p>在 iOS 设备上，基本的思路是我们安装一个配置文件，该配置文件会更改设备以产生更多日志记录，然后重现崩溃（或是让客户进行这样的操作）。然后，我们按设备上的特殊键序列（例如，音量按钮和侧面按钮）。 设备会短暂振动，表明它正在运行程序 <code>sysdiagnose</code>，该程序会提取许多日志文件。 这可能需要花费 10分钟来处理，并生成一个大文件（压缩的tar文件）。</p>
 <p>然后，与Mac共享本地sysdiagnosis文件。我们点开菜单 <code>Settings &gt; Privacy &gt; Analytics and Improvements &gt; Analytics Data</code>。向下滚动以查找开头的文件 <code>sysdiagnose_YEAR.MONTH.DAY_*</code>。</p>
 <figure>
@@ -1239,7 +1240,7 @@ sd
 <p>与 macOS 相比，激进（积极）的内存管理是 iOS 的一个特点，macOS 对内存使用有非常宽松的限制。通俗来说，移动设备是内存受限的设备。然而，随着移动设备的功能越来越强大，特别是 iPad 设备，这种差异已经越来越小。现在，Apple Watch 被认为是内存受限的设备。然而，<code>Jetsam</code> 严格的内存管理系统为我们提供了良好的服务，在给定的 RAM 量下保证最佳的用户体验。</p>
 <p>最好把 <code>Jetsam</code> 看作是正常的行为，从内存中弹出并不一定是我们应用程序设计的错误。我们本来可以在后台运行，当用户使用拍照功能进行大量的拍照和图像特效时，内存使用量会增加。</p>
 <p>如果我们经常从内存中弹出，我们必须考虑我们是否在后台使用了过多的内存； 我们的目标应该是不超过 50 MB或更小。我们还应该编写程序方法来保存上下文、销毁缓存和保存状态，以便从保存的状态恢复。然后我们应该 Hook 在这样的功能，当我们从系统得到一个内存警告消息时，如 <code>AppDelegate</code> 中的 <code>applicationDidReceiveMemoryWarning:</code>  的回调 ，执行该方法。</p>
-<p>Apple 记录了 <code>Jetsam</code> 事件可能发生的各种原因，以及如何避免它们的内存管理技术。<span class="citation" data-cites="jetsamreport">(“Identifying High-Memory Use with Jetsam Event Reports” 2020)</span></p>
+<p>Apple 记录了 <code>Jetsam</code> 事件可能发生的各种原因，以及如何避免它们的内存管理技术。<span class="citation" data-cites="jetsamreport">@jetsamreport</span></p>
 <p>并没有实际的文档说明这种限制，但是通常应用程序比应用程序扩展拥有有更多的后台内存使用。应用程序扩展有各种类型的扩展，每一种都有自己的限制。例如，一个照片编辑应用程序扩展会有很大的限制，因为它通常是一个重量级的图像处理程序。</p>
 <p>在 Jetsam 报告中首先要查找的是 <em>reason</em> 字段。</p>
 <table>
@@ -2390,7 +2391,7 @@ Error Code:      0x00000004
 Trap Number:     14</code></pre>
 <p>除与了 iOS 相似的信息之外，我们还获得了更多有关运行该线程的 CPU 的消息 。如果有需要我们可以在 Darwin XNU 源代码中查找对应的 <code>trap number</code> 。</p>
 <p>Darwin XNU 源代码的便捷镜像由 GitHub 来托管：https://github.com/apple/darwin-xnu</p>
-<p>这些 <code>trap number</code> 可以被搜索到。我们从<code>osfmk/x86_64/idt_table.h</code> 可以找到 <code>Trap Number:14</code> 表明看了一个页面错误。这个错误代码是一个位向量，用于描述在 mach 上的错误代码。<span class="citation" data-cites="macherror">(“Making Sense of I/O Kit Error Codes” 2018)</span></p>
+<p>这些 <code>trap number</code> 可以被搜索到。我们从<code>osfmk/x86_64/idt_table.h</code> 可以找到 <code>Trap Number:14</code> 表明看了一个页面错误。这个错误代码是一个位向量，用于描述在 mach 上的错误代码。<span class="citation" data-cites="macherror">@macherror</span></p>
 <h3 id="macos-崩溃报告-binary-images-部分">macOS 崩溃报告 Binary Images 部分</h3>
 <p>接下来，是崩溃应用程序所加载的 Binary Images。</p>
 <p>以下是崩溃报告中前几个二进制文件的示例，为了便于演示，进行了截断：</p>
@@ -2450,7 +2451,7 @@ Trap Number:     14</code></pre>
 <li>程序必须被分配这些权利，将 <code>SecTaskAccess</code> 设置为 <code>allowed</code> 和 <code>debug</code>。</li>
 <li>用户必须同意在其安全设置中信任该程序</li>
 </ul>
-<p>示例代码 <code>tfpexample</code> 演示了这一点。 <span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>示例代码 <code>tfpexample</code> 演示了这一点。 <span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <h3 id="macos-崩溃报告虚拟内存部分">macOS 崩溃报告虚拟内存部分</h3>
 <p>崩溃报告接下来是虚拟内存摘要和区域类型细分。如果我们有一个用来渲染文档页面的图形丰富的应用程序，则可以查看，例如 CoreUI 的内存消耗。尽当我们用 Xcode Instruments 中的 memory profiler 工具分析该应用程序时，虚拟内存统计信息才有意义，因为这样我们就可以了解应用程序中内存的动态使用情况，从来在错误发生时发现错误。</p>
 <p>这是报告的虚拟内存部分的示例：</p>
@@ -2529,7 +2530,7 @@ Bluetooth: Version 6.0.6f2, 3 services, 27 devices,
 <h2 id="什么是-apple-silicon-mac">什么是 Apple Silicon Mac?</h2>
 <p>Apple Silicon表示该芯片的设计来自Apple，而不是第三方。 苹果公司的A系列芯片可以被认为是苹果芯片。 但是，本章重点是Apple Silicon Macs。 这些始于Apple M1芯片。 这些Mac之所以不被称为 <em>基于ARM的Mac</em>，可能是因为Apple在设计水平上做出了重大贡献，同时仍然符合ARM ABI。 当从基于 Intel 的 Mac 切换到 Apple Silicon Mac 时，这为客户带来了更优益的市场收益，例如更长的电池寿命和高性能。</p>
 <h2 id="什么是-rosetta">什么是 Rosetta?</h2>
-<p>Rosetta 是 Apple Silicon Mac 上的指令翻译器。当应用程序将 Intel 指令作为二进制代码的一部分时，它可以将这些指令转换为 ARM 指令，然后运行它们。可以把它看作 AOT  编译器。<span class="citation" data-cites="rosetta">(“About the Rosetta Translation Environment” 2020)</span> 这项技术的起源可以追溯到更早的时期，当时 mac 正在从 PowerPC 芯片过渡到 Intel 芯片。苹果在 Transitive Technologies Ltd. 的技术帮助下研发出了 Rosetta 的第一个版本。<span class="citation" data-cites="transitive">(“Heroes of Software Engineering - the Men and Women at Transitive” 2020)</span> <span class="citation" data-cites="rosetta_news">(“The Brains Behind Apple’s Rosetta: Transitive” 2020)</span> 在 Rosetta 的第二个版本中，我们的系统允许在每个进程的基础上，将 Intel 指令预先翻译成 ARM 指令，然后以原生速度运行。</p>
+<p>Rosetta 是 Apple Silicon Mac 上的指令翻译器。当应用程序将 Intel 指令作为二进制代码的一部分时，它可以将这些指令转换为 ARM 指令，然后运行它们。可以把它看作 AOT  编译器。<span class="citation" data-cites="rosetta">@rosetta</span> 这项技术的起源可以追溯到更早的时期，当时 mac 正在从 PowerPC 芯片过渡到 Intel 芯片。苹果在 Transitive Technologies Ltd. 的技术帮助下研发出了 Rosetta 的第一个版本。<span class="citation" data-cites="transitive">@transitive</span> <span class="citation" data-cites="rosetta_news">@rosetta_news</span> 在 Rosetta 的第二个版本中，我们的系统允许在每个进程的基础上，将 Intel 指令预先翻译成 ARM 指令，然后以原生速度运行。</p>
 <h3 id="rosetta-的二进制文件">Rosetta 的二进制文件</h3>
 <p>在 Apple Silicon Mac 上，Rosetta 软件驻留在</p>
 <pre><code>/Library/Apple/usr/libexec/oah</code></pre>
@@ -2550,7 +2551,7 @@ Bluetooth: Version 6.0.6f2, 3 services, 27 devices,
 <p>一旦我们有了一个 Fat Binary 文件，我们可以使用 <code>Finder</code> 应用程序，右键单击<code>File info</code>设置 Rosetta 来执行我们的二进制文件的翻译，这样在一个 Apple Silicon Mac 上，Intel 指令就会从 Fat Binary 中翻译出来。</p>
 <p><img src="screenshots/univeral_application_icdab_rosetta_thread.png" /></p>
 <h2 id="翻译后的应用程序示例">翻译后的应用程序示例</h2>
-<p>本章的工作示例是<code>icdab_thread</code>程序。 可以在网上找到。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span> 该程序尝试调用 <code>thread_set_state</code>，然后在 60 秒后调用<code>abort</code>  主动崩溃。实际上它并没有办法达到这个效果，因为最近 macOS 的安全增强，以防止使用这样的API，它是恶意软件的攻击载体。尽管如此，这个程序还是很有趣的，因为在崩溃时，一个紧密相关的部分<code>task_for_pid</code>  被多次调用了 。</p>
+<p>本章的工作示例是<code>icdab_thread</code>程序。 可以在网上找到。<span class="citation" data-cites="icdabgithub">@icdabgithub</span> 该程序尝试调用 <code>thread_set_state</code>，然后在 60 秒后调用<code>abort</code>  主动崩溃。实际上它并没有办法达到这个效果，因为最近 macOS 的安全增强，以防止使用这样的API，它是恶意软件的攻击载体。尽管如此，这个程序还是很有趣的，因为在崩溃时，一个紧密相关的部分<code>task_for_pid</code>  被多次调用了 。</p>
 <p>我们已经将命令行可执行程序 <code>icdab_thread</code> 修改为仅调用相同基础代码的应用程序。这个应用程序就是 <code>icdab_rosetta_thread</code>。这是因为 UNIX 命令行可执行文件不适合运行转换后的程序，而应用程序可以。</p>
 <h3 id="icdab_rosetta_thread-lipo-信息"><code>icdab_rosetta_thread</code> Lipo 信息</h3>
 <p>以下命令显示我们的应用程序同时支持 ARM 和 Intel 指令。</p>
@@ -2720,8 +2721,8 @@ Rosetta JIT                      128.0M        1
 Rosetta Return Stack               192K       12
 Rosetta Thread Context             192K       12</code></pre>
 <h2 id="rosetta-崩溃">Rosetta 崩溃</h2>
-<p>Rosetta 是功能强大的翻译系统。 但是它不能翻译所有 X86-64指令。 例如，矢量指令无法翻译，遇到时会发生崩溃。 <span class="citation" data-cites="rosetta">(“About the Rosetta Translation Environment” 2020)</span></p>
-<p>在诊断特定问题之前，有必要先熟悉一下 Apple 的 Porting Guide，因为这可以帮助我们针对程序可能崩溃的原因提出合理的假设。 <span class="citation" data-cites="rosettaPortingGuide">(“Porting Your macOS Apps to Apple Silicon” 2020)</span></p>
+<p>Rosetta 是功能强大的翻译系统。 但是它不能翻译所有 X86-64指令。 例如，矢量指令无法翻译，遇到时会发生崩溃。 <span class="citation" data-cites="rosetta">@rosetta</span></p>
+<p>在诊断特定问题之前，有必要先熟悉一下 Apple 的 Porting Guide，因为这可以帮助我们针对程序可能崩溃的原因提出合理的假设。 <span class="citation" data-cites="rosettaPortingGuide">@rosettaPortingGuide</span></p>
 <h3 id="icdab_avx-矢量指令崩溃"><code>icdab_avx</code> 矢量指令崩溃</h3>
 <p>当在使用翻译运行应用程序的 Apple Silicon Mac 上遇到英特尔 AVX 矢量指令 时，我们就会崩溃。我们用一个示例应用程序 <code>icdab_avx</code>来演示了这一点。</p>
 <p>崩溃代码类型将为：</p>
@@ -2961,7 +2962,7 @@ amework/Versions/A/UIKitCore
  /System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib</code></pre>
 <p>在大多数情况下，这些崩溃可以像在 iOS 上崩溃一样直接进行分析。问题很有可能是由于不同的物理环境导致的。例如，iOS 设备具有陀螺仪，而 macOS 设备则没有。</p>
 <h3 id="在-mac-上支持-ios-应用程序">在 Mac 上支持 iOS 应用程序</h3>
-<p>Apple 提供了在 Mac 上部署 iOS 应用程序的最佳实践指南。<span class="citation" data-cites="iosOnMac">(“Running Your iOS Apps on macOS” 2020)</span> 你可以进行如下操作：</p>
+<p>Apple 提供了在 Mac 上部署 iOS 应用程序的最佳实践指南。<span class="citation" data-cites="iosOnMac">@iosOnMac</span> 你可以进行如下操作：</p>
 <ol type="1">
 <li>如果确定自己的 iOS 应用程序不适合 macOS。在 App Store Connect 中可以取消配置。</li>
 <li>允许在 iOS 上安装的应用程序安装在 macOS 上，但是添加检查可用的可选硬件功能。</li>
@@ -2987,10 +2988,10 @@ amework/Versions/A/UIKitCore
 .</code></pre>
 <h1 id="pointer-authentication指针验证机制">Pointer Authentication（指针验证机制）</h1>
 <p>在本章中，我们将研究指针验证机制以及相关的崩溃。</p>
-<p>使用 Apple A12 芯片或更高版本的设备将称为 <em>Pointer Authentication</em> 的安全功能作为 ARMv8.3-A 体系结构的一部分。例如， iPhone XS，iPhone XS Max, 和 iPhone XR 使用 A12芯片。其基本思想是在 64 位指针中存在未使用的位，因为它已经可以寻址相当广泛的地址，因此只有 40 位被分配给这样的目的。 <span class="citation" data-cites="iospac">(“Examining Pointer Authentication on the iPhone Xs” 2019)</span> 因此，剩余的位可用于存储在将预期的指针地址与上下文值和密钥组合后计算出的哈希值。 然后，如果由于错误或恶意操作而要更改指针地址，则该指针将被认为是无效的，并且如果将其用于更改程序的控制流，则最终将导致 SIGSEGV。</p>
+<p>使用 Apple A12 芯片或更高版本的设备将称为 <em>Pointer Authentication</em> 的安全功能作为 ARMv8.3-A 体系结构的一部分。例如， iPhone XS，iPhone XS Max, 和 iPhone XR 使用 A12芯片。其基本思想是在 64 位指针中存在未使用的位，因为它已经可以寻址相当广泛的地址，因此只有 40 位被分配给这样的目的。 <span class="citation" data-cites="iospac">@iospac</span> 因此，剩余的位可用于存储在将预期的指针地址与上下文值和密钥组合后计算出的哈希值。 然后，如果由于错误或恶意操作而要更改指针地址，则该指针将被认为是无效的，并且如果将其用于更改程序的控制流，则最终将导致 SIGSEGV。</p>
 <p>实际上，在许多情况下都使用了指针验证机制，例如确保 C++ 虚拟调度表未被篡改。 但是，我们只看一个错误操作跳转地址的简单情况。因此，我们只看一个错误操作跳转地址的简单情况。</p>
 <h2 id="配置指针验证机制">配置指针验证机制</h2>
-<p>在使用 A12 或更高版本的设备，Apple 在设备内核中启用了指针验证机制。对于用户空间代码，指针身份验证是一项可选功能。可以在项目的_构建设置_中来启用它，如图为 <code>icdab_ptr</code> 示例 <em>Enable Pointer Authentication</em>（启用指针验证机制）。 <span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span> 我们将架构 <code>arm64e</code> 添加到架构设置中。</p>
+<p>在使用 A12 或更高版本的设备，Apple 在设备内核中启用了指针验证机制。对于用户空间代码，指针身份验证是一项可选功能。可以在项目的_构建设置_中来启用它，如图为 <code>icdab_ptr</code> 示例 <em>Enable Pointer Authentication</em>（启用指针验证机制）。 <span class="citation" data-cites="icdabgithub">@icdabgithub</span> 我们将架构 <code>arm64e</code> 添加到架构设置中。</p>
 <figure>
 <img src="screenshots/enable_ptr_auth.png" alt="Enable Pointer Authentication" /><figcaption aria-hidden="true">Enable Pointer Authentication</figcaption>
 </figure>
@@ -3073,7 +3074,7 @@ ptrFn result is 0x2946180102c55df8</code></pre>
 <p>请注意，当我们剥离指针时，我们使用了<code>ptrauth_key_asia</code>来删除指令密钥A。但是，我们无法访问执行相反操作所需的特殊值，而是使用带有适当的 <em>salt</em> 的指令密钥A来对指针进行签名值以获取上下文中正确的带符号指针。</p>
 <p>现在，我们已经检查了错误的代码，让我们看看崩溃时会发生什么。</p>
 <h2 id="icdab_ptr-pac-崩溃"><code>icdab_ptr</code> PAC 崩溃</h2>
-<p>在具有 A13 仿生芯片的 iPhone 11上，运行<code>icdab_ptr</code> 程序时会得到以下崩溃信息。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>在具有 A13 仿生芯片的 iPhone 11上，运行<code>icdab_ptr</code> 程序时会得到以下崩溃信息。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <pre><code>Incident Identifier: DA9FE0C7-6127-4660-A214-5DF5D432DBD9
 CrashReporter Key:   d3e622273dd1296e8599964c99f70e07d25c8ddc
 Hardware Model:      iPhone12,1
@@ -3264,7 +3265,7 @@ Thread 0 crashed with ARM Thread State (64-bit):
 </blockquote>
 <p>锤子最适合钉钉子，通常也可以砸东西，但是对其他的可能并不有用。锤子是对某种问题的解决方案。此外，我们思考问题的方式可以由一些技巧组成。如果我们增加可用的技巧，开始以不同的方式去思考问题，其中可能有一种方式会让我们获得我们想要的答案。</p>
 <p>如果我们的工具箱中有一把扳手和一把钢锯。我们想拆除一个已生锈螺栓固定的旧浴室配件。由于螺栓无法转动，因此可能无法使用扳手。但是，使用钢锯锯掉螺栓头可能是一个可行的次佳解决方案。 通过观察有经验的水管工人或技工，就会发现这种技巧。</p>
-<p>在这种情况下，我们将介绍“分析故障排除”。<span class="citation" data-cites="kepnertregoe">(“Analytic Troubleshooting” 2018)</span> 当我们用尽所有方法并且已经尝试了一些常见手段之后，本章将帮助我们推进解决问题。</p>
+<p>在这种情况下，我们将介绍“分析故障排除”。<span class="citation" data-cites="kepnertregoe">@kepnertregoe</span> 当我们用尽所有方法并且已经尝试了一些常见手段之后，本章将帮助我们推进解决问题。</p>
 <p>这个方法是 <a href="https://www.kepner-tregoe.com/">Kepner Tregoe 方法</a> 的简化版本。</p>
 <h2 id="优先考虑自己的问题">优先考虑自己的问题</h2>
 <p>如果我们是一个应用程序（可能只有很少的用户）的唯一开发者，当我们收到崩溃报告时，可能会感到我们正在面临着一场好奇的智力挑战。</p>
@@ -3333,7 +3334,7 @@ Thread 0 crashed with ARM Thread State (64-bit):
 </table>
 <p>对一个团队来说，分析性故障排除很有效果。通过一些领域专业人员（专家），以及来自其他领域的人员和非技术人员，我们可以组建一个优秀的故障排除团队。专家有时会忽略问基本的问题，而不太了解情况的员工可以问清楚问题，从而进一步露出问题中的隐藏假设。棘手的客户问题让人干到焦虑，所以让团队聚在一起解决问题可以缓解紧张气氛，提高士气。有时可以邀请我们的客户参加； 这通常可以加快过程，甚至提出更多的假设。</p>
 <p>当作为一个团队进行故障排除时，我们可以使用一块白板，将其分成一个表格，如上所述。每个人都可以得到一份讲义，列出表格中每条每列要问的问题。</p>
-<p>与本书相关的网站上有用于分析故障排除的辅助材料和讲义。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>与本书相关的网站上有用于分析故障排除的辅助材料和讲义。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <p>当我们自己进行故障排除时，列出所有问题并将它们填入表格是一种很好的方法。远离电脑（或代码层面），列举出要检查的项目清单是很好的，因为这样可以消除深入研究细节的直接冲动。 相反，一旦有了要跟踪的项目清单，就可以确定工作的优先级。</p>
 <p>我们首先在 IS 列中填写详细信息。然后，我们填写 IS NOT 列。通常，我们会注意到网格中没有数据的空白区域。这是一个信号，让我们去收集更多的数据或做更多的研究。这样做的目的是使 IS 和IS NOT 列之间的相关_差异_尽可能小。这使我们能够得到一个可以测试的好假设，或者是可以优先被考虑测试的一些假设。</p>
 <p>任何可能的问题解决方案都必须 <strong>完全</strong> 解释问题规范中的 IS 和 IS NOT 部分。通常，我们想到的第一个解决方案只能解释了问题规范中的部分问题。多花一点时间思考潜在的原因，或者多做一点研究，都是很好的时间投资，尤其是当尝试不同的备选解决方案很困难或者很耗时的时候。</p>
@@ -3553,7 +3554,7 @@ Thread 0 crashed with ARM Thread State (64-bit):
 <p>另一个线索是 25％ 的用户设备有问题。 如果问题是由于使用不同的硬件而导致的，因此硬件功能各不相同，那么我们可以看到大约有25％ 的用户使用 iPad 而不是 iPhone。 但是，严格说来这 25％ 的问题并没有明确告诉我们，环境中的其他因素可能会影响应用程序的行为。也许在安装过程中，服务器是在托管游戏后端的四台服务器中以循环方式选择的。 此外，在开发过程中，使用的服务器也许是与我们的客户使用的生产服务器不同的特殊开发服务器。 同样，IS NOT 部分提供了有关在哪里寻找潜在解决方案的最有启发性的线索。</p>
 <p>如果我们不进行分析性故障排除，则在此示例中，第一个本能将是检查内存泄漏，内存压力，硬件限制等。这种分析很容易会花费一周的工程时间。 虽然此类问题有可能导致丢帧而无法完全解释我们所看到的缺陷模式； 他们不会解释为什么恰好有25％的用户遇到了这个问题。</p>
 <h2 id="macbook-pro-t2-的问题">2018 MacBook Pro T2 的问题</h2>
-<p>本节描述了 2018 款 MacBook Pro 电脑崩溃的问题 叙述来自受影响用户的讨论组发布 <span class="citation" data-cites="macbookproT2">(“2018 Macbook Pros Bridge Os Error” 2018)</span> 和媒体报道 <span class="citation" data-cites="appleinsiderimacpro">(“Apple’s T2 Chip May Be Behind iMac Pro, Macbook Pro Crashes” 2018)</span></p>
+<p>本节描述了 2018 款 MacBook Pro 电脑崩溃的问题 叙述来自受影响用户的讨论组发布 <span class="citation" data-cites="macbookproT2">@macbookproT2</span> 和媒体报道 <span class="citation" data-cites="appleinsiderimacpro">@appleinsiderimacpro</span></p>
 <p><strong>问题描述：</strong> 2018 MacBook Pro 计算机在休眠期间因 Bridge OS 错误而崩溃。</p>
 <ul>
 <li>WHAT IS
@@ -3711,8 +3712,8 @@ Thread 0 crashed with ARM Thread State (64-bit):
 <p>如果可以使问题更加频繁，则可以编写自动系统测试。 然后，对 Bridge OS 的任何修复都将具有强大的测试组件来对其进行验证。</p>
 <p>我们没有 Bridge OS 的源代码。所以辨别所看到的三个崩溃之间的差异将很有趣。 例如，有时有一个案例陈述包含 20 种可能的故障，而仅输入一个。这揭示了有关问题规范中 WHERE IS NOT 的信息。</p>
 <p>我们没有故障机器的寄存器信息。 当发生底层问题时，处理器文档将使系统架构师可以准确地查找故障的种类（超时，奇偶校验错误等）。在我们的问题规范中，我们需要更精确地确定问题所在 WHERE。 BridgeOS 可能只是一个金丝雀，告诉我们其他地方的问题。 一些客户已收到完整的硬件更换，但仍然看到问题。 则表明是软件问题。</p>
-<p>英特尔已经描述了其架构的更新，该更新中可以发送 CATERR 信号而不是 IERR 或 MCERR。<span class="citation" data-cites="intelrob">(“Debugging Processor Reorder Buffer Timeout: Guide” 2018)</span> 因此，规范的更新可能意味着系统软件不再兼容，因此 Bridge OS 需要更新。</p>
-<p>一种方法是遵循英特尔调试指南 <span class="citation" data-cites="intelrob">(“Debugging Processor Reorder Buffer Timeout: Guide” 2018)</span>。它有很多好的建议。 当BridgeOS遇到问题时，应进行更新寄存器以打印出相关的诊断。</p>
+<p>英特尔已经描述了其架构的更新，该更新中可以发送 CATERR 信号而不是 IERR 或 MCERR。<span class="citation" data-cites="intelrob">@intelrob</span> 因此，规范的更新可能意味着系统软件不再兼容，因此 Bridge OS 需要更新。</p>
+<p>一种方法是遵循英特尔调试指南 <span class="citation" data-cites="intelrob">@intelrob</span>。它有很多好的建议。 当BridgeOS遇到问题时，应进行更新寄存器以打印出相关的诊断。</p>
 <h1 id="siri崩溃">Siri崩溃</h1>
 <h2 id="我们为什么要关注-siri-崩溃">我们为什么要关注 Siri 崩溃？</h2>
 <p>这是 Siri 在 Mac 上崩溃的示例。 请注意，Mac 上的二进制文件未加密。这意味着我们可以演示如何使用第三方工具来研究出错的二进制文件。但由于只有 Apple 拥有 Siri 的源代码，因此它增加了挑战难度，并迫使我们对问题进行抽象思考。</p>
@@ -3835,7 +3836,7 @@ __weak id &lt;SiriUXHeaterDelegate&gt; delegate;
 <p>Swift 编程语言是朝着编写默认安全代码迈出的重要一步。</p>
 <p>Swift 的核心概念是明确地处理可选性。在类型声明中，尾随的 <code>?</code> 表示该值可以不存在，用 <code>nil</code> 表示。这些类型需要显式展开来访问它们存储的值。</p>
 <p>当一个值在对象初始化时不可用，但在对象生命周期的后期，然后尾随’ !’用于保存值的类型。这意味着可以在代码中处理该值，而不需要显式解包。它被称为可选的隐式解包可选。 注意，从 Swift 4.2 开始，在实现级别，它是可选的，带有注释，表明可以使用它而无需显式解包。</p>
-<p>我们使用 <code>icdab_wrap</code> 示例程序来演示由于错误使用可选控件而导致的崩溃。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>我们使用 <code>icdab_wrap</code> 示例程序来演示由于错误使用可选控件而导致的崩溃。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <h3 id="ios-uikit-outlets">iOS UIKit Outlets</h3>
 <p>使用故事板来声明用户界面，并将<code>UIViews</code>与<code>UIViewController</code>相关联，这是一个标准范例。</p>
 <p>当用户界面更新时，比如启动我们的应用程序时，或者在场景之间执行segue时，故事板实例支持 <code>UIViewController</code>并在我们的 <code>UIViewController</code>对象中将字段设置为已创建的 <code>UIViews</code> 。</p>
@@ -3908,8 +3909,8 @@ Thread 0 Crashed:
     cpsr: 0x60000000</code></pre>
 <h2 id="释放正在使用的信号量">释放正在使用的信号量</h2>
 <p><code>libdispatch</code> 库支持识别运行时问题。 出现此类问题时，应用程序崩溃并显示异常类型， <code>EXC_BREAKPOINT (SIGTRAP)</code></p>
-<p>我们使用 <code>icdab_sema</code>示例程序来演示 <code>libdispatch</code> 检测到的由于错误使用信号量而导致的崩溃。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
-<p><code>libdispatch</code> 库是用于管理并发的操作系统库（称为Grand Central Dispatch或GCD）。该库可从Apple处以开源形式获得。<span class="citation" data-cites="libdispatchtar">(“Libdispatch Open Source” 2018)</span></p>
+<p>我们使用 <code>icdab_sema</code>示例程序来演示 <code>libdispatch</code> 检测到的由于错误使用信号量而导致的崩溃。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
+<p><code>libdispatch</code> 库是用于管理并发的操作系统库（称为Grand Central Dispatch或GCD）。该库可从Apple处以开源形式获得。<span class="citation" data-cites="libdispatchtar">@libdispatchtar</span></p>
 <p>该库抽象了操作系统如何提供对多核CPU资源的访问的详细信息。 在崩溃期间，它会向崩溃报告提供其他信息。 这意味着，如果我们愿意，我们可以找到检测到运行时问题的代码。</p>
 <h3 id="释放信号量的崩溃示例">释放信号量的崩溃示例</h3>
 <p><code>icdab_sema</code> 示例程序在启动时发生崩溃。 崩溃报告如下（为便于演示，对报告内容进行截断）：</p>
@@ -4099,7 +4100,7 @@ Logical CPU:     3
 Error Code:      0x00000004
 Trap Number:     14</code></pre>
 <p>我们显然有一个不好的内存问题，因为我们有一个<code>EXC_BAD_ACCESS (SIGSEGV)</code>（SIGSEGV）异常。 我们看到的错误代码是 14，在https://github.com/apple/darwin-xnu中这属于缺页中断。</p>
-<p>由于 <code>libdispatch</code>是 Apple 开源的，我们甚至可以查找触发崩溃的函数。<span class="citation" data-cites="libdispatchtar">(“Libdispatch Open Source” 2018)</span></p>
+<p>由于 <code>libdispatch</code>是 Apple 开源的，我们甚至可以查找触发崩溃的函数。<span class="citation" data-cites="libdispatchtar">@libdispatchtar</span></p>
 <p>我们看到：</p>
 <pre><code>#define dx_push(x, y, z) dx_vtable(x)-&gt;do_push(x, y, z)
 
@@ -4533,7 +4534,7 @@ Binary Images:
  ADDON::CAddonMgr::Init() (AddonManager.cpp:215)</code></pre>
 <p>诊断此类问题的最简单方法是让应用程序在尝试在运行时加载可选软件框架之前记录其配置。 应用程序包可能缺少我们想要的库。</p>
 <p>有时我们会集成第三方库，这些库中具有动态代码加载功能。 在这种情况下，我们需要使用 Xcode 诊断工具。</p>
-<p>我们没有XBMC应用程序的源代码。 但是，有一个开源示例演示了动态加载程序的使用。 <span class="citation" data-cites="dynamicloadingeg">(“Dynamic Loading Example” 2018)</span></p>
+<p>我们没有XBMC应用程序的源代码。 但是，有一个开源示例演示了动态加载程序的使用。 <span class="citation" data-cites="dynamicloadingeg">@dynamicloadingeg</span></p>
 <p>当我们运行该程序时，我们可以在应用程序编码的动态加载程序的使用中看到有用的消息。 此外，我们可以通过如下修改 Scheme 设置, <em>Dynamic Linker API Usage</em> :</p>
 <p><img src="screenshots/dynamic_loading.png" /></p>
 <p>启动该程序后，我们可以看到它如何动态加载模块。 除了我们的应用程序消息外，我们还会收到系统生成的消息。 系统消息没有时间戳前缀，但应用程序消息却有。</p>
@@ -4898,7 +4899,7 @@ libGPUSupportMercury.dylib</code></pre>
 <pre><code>/System/Library/PrivateFrameworks/GPUSupport.framework/
 Versions/A/Libraries/</code></pre>
 <p><img src="screenshots/finder_support_mercury.png" /></p>
-<p>然后，我们可以简单地将<code>libGPUSupportMercury.dylib</code>从 Finder 中拖到 Hopper 应用的主面板中，它将开始处理文件。</p>
+<p>然后，我们可以简单地将 <code>libGPUSupportMercury.dylib</code> 从 Finder 中拖到 Hopper 应用的主面板中，它将开始处理文件。</p>
 <p><img src="screenshots/drag_file_to_hopper.png" /></p>
 <p>我们需要选择要脱壳的体系结构。 它必须与我们正在诊断的内容匹配。从崩溃报告中我们可以看到它是 <code>Code Type</code> <code>X86 (Native)</code>，这意味着我们需要在 Hopper 中选择32位体系结构选项。</p>
 <p><img src="screenshots/hopper_32bit.png" /></p>
@@ -4906,7 +4907,7 @@ Versions/A/Libraries/</code></pre>
 <p>片刻之后，文件将被处理。 然后我们可以选择 <em>Navigate -&gt; Go To Address or Symbol</em> 并提供地址 <code>_gpusGenerateCrashLog</code> 。注意，下划线是在前面的。 C 编译器会在生成目标文件之前自动将其放入。 在过去，这样做是为了使手写的汇编代码在链接期间不会与C 语言符号冲突。</p>
 <p>在默认视图中，Hopper 将显示该功能的反汇编代码。</p>
 <p><img src="screenshots/hopper_diss.png" /></p>
-<p>通过选择伪代码按钮（用红色圆圈显示），我们可以使 Hopper 生成对该功能的更容易理解的描述。</p>
+<p>通过选择伪代码按钮（用红色圆圈显示），我们可以使 Hopper 对该功能生成更容易理解的描述。</p>
 <p><img src="screenshots/hopper_pseudocode.png" /></p>
 <p>这是 Hopper 的输出：</p>
 <pre><code>int _gpusGenerateCrashLog(int arg0, int arg1, int arg2) {
@@ -4950,7 +4951,7 @@ Graphics kernel error: 0xfffffffb</code></pre>
 <p>通过使用不同的 Mac 和显卡配置将会使实验结果变得很有趣。这让我们判断可能是一个特定的驱动问题，或一个通用的 OpenGL 问题。</p>
 <h2 id="类型混淆">类型混淆</h2>
 <p>编译器在静态类型检查方面做得非常出色。但在动态推断类型时，可能会出现问题。而 配置文件在这方面尤为麻烦。 很容易为配置参数设置错误的类型</p>
-<p>我们借助示例代码<code>icdab_nsdata</code>来说明我们的观点。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>我们借助示例代码<code>icdab_nsdata</code>来说明我们的观点。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <h3 id="从配置文件中获取-nsdata-对象">从配置文件中获取 NSData 对象</h3>
 <p>思考以下示例代码</p>
 <pre><code>- (BOOL)application:(UIApplication *)application
@@ -5101,7 +5102,7 @@ default 13:36:58.000000 +0000   ReportCrash
 <p>Apple SDK 具有私有实现类，以支持我们使用的公共对象。 错误报告将引用这些私有类。 因此，他们的名字可能令人不再熟悉。</p>
 <p>可以通过一种简单的方法进行管理，并找出具体表示映射到要搜索的类是类型定义的哪个对象。</p>
 <p>方便的是，其他工程师已经在框架上使用 <code>class-dump</code> 工具来生成所有 Objective-C 的类定义，并将它们存储在 GitHub上。他们使用 <code>class-dump</code>工具。这使得 Objective-C 的所有私有框架符号都很容易搜索到。</p>
-<p>我们可以找到关于 <code>_isDispatchData</code>的定义。 <span class="citation" data-cites="dispatchdata">(“NSDispatchData.h in Foundation.framework” 2018)</span></p>
+<p>我们可以找到关于 <code>_isDispatchData</code>的定义。 <span class="citation" data-cites="dispatchdata">@dispatchdata</span></p>
 <pre><code>/* Generated by RuntimeBrowser
    Image: /System/Library/Frameworks/Foundation.framework/
    Foundation
@@ -5128,7 +5129,7 @@ default 13:36:58.000000 +0000   ReportCrash
   { unsigned long long x1; unsigned long long x2; })arg1;
 
 @end</code></pre>
-<p>同样，我们可以查找 <code>__NSCFConstantString</code>。 <span class="citation" data-cites="cfconstantstring">(“NSCFConstantString in Corefoundation.framework” 2018)</span></p>
+<p>同样，我们可以查找 <code>__NSCFConstantString</code>。 <span class="citation" data-cites="cfconstantstring">@cfconstantstring</span></p>
 <pre><code>/* Generated by RuntimeBrowser
    Image: /System/Library/Frameworks/CoreFoundation.framework/
    CoreFoundation
@@ -5642,7 +5643,7 @@ __CFRunLoopServiceMachPort + 120
  thread_start + 0</code></pre>
 <p>二进制代码<code>0xbad22222</code> 读作 “Bad too many”，将“too”用作“2”的双关语。</p>
 <p>在操作系统中，管理内存的方法是首先将连续的内存排序为内存页，然后将页面排序为段。 这允许将元数据属性分配给应用于该段内的所有页面的段。这允许我们的程序代码(程序 <em>TEXT </em> )被设置为只读但可执行。提高了性能和安全性。</p>
-<p>此类崩溃可能是由于未正确使用网络 API. <span class="citation" data-cites="impropersockets">(“Improper Use of Bsd Sockets” 2018)</span></p>
+<p>此类崩溃可能是由于未正确使用网络 API. <span class="citation" data-cites="impropersockets">@impropersockets</span></p>
 <h2 id="设备过热崩溃">设备过热崩溃</h2>
 <p>如果设备温度过高，iOS 可能会使应用程序崩溃。使用 <code>Exception Code</code> <code>0xc00010ff</code> 进行分类。</p>
 <p>例如，iTrainAlarm 应用程序发生终止，并生成以下崩溃报告，为了便于演示，该报告已被截断：</p>
@@ -5713,7 +5714,7 @@ Unknown thread crashed with unknown flavor: 5, state_count: 1</code></pre>
 <p>这同样可以在系统因资源相关原因终止应用程序的情况下看到。</p>
 <p>通过查阅 Darwin XNU 代码中的线程编码，我们可以看到:</p>
 <pre><code>#define THREAD_STATE_NONE       5</code></pre>
-<p><span class="citation" data-cites="threadstatus">(“Thread Status Values in Mach” 2018)</span></p>
+<p><span class="citation" data-cites="threadstatus">@threadstatus</span></p>
 <p>这就意味着这不是什么值得关注的事情。崩溃报告工具工具可以进行改进以识别并报告该线程。</p>
 <h1 id="应用程序终止崩溃">应用程序终止崩溃</h1>
 <p>在本章中，我们研究应用程序终止崩溃。</p>
@@ -5943,7 +5944,7 @@ Process detected doing insecure drawing while in secure mode</code></pre>
 <h2 id="信号处理失败">信号处理失败</h2>
 <p>在调试程序时，从概念上讲，它与崩溃时的状态类似。 这是因为我们要进入流程并检查其状态（或可能通过插入断点来更改程序）。 在iOS 13.5（在iOS 14.x中已修复）中，有一个小故障：如果应用程序告诉操作系统它希望进行调试，那么当系统希望通过崩溃而将应用程序杀死时，却发现无法杀死该应用程序。然后，整个系统卡死，需要重启设备。</p>
 <p>如果我们有一个应用程序，可能具有一些反逆向工程或反调试功能 （可能通过框架），那么我们可能最终会遇到这种情况，因为使一个应用程序假装它已经被调试是防止调试器连接的一种常用技术。</p>
-<p>应用程序 <code>icdab_pt</code> 演示了该问题。 <span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span>. <span class="citation" data-cites="jitios">(“Jailed Just in Time Compilation on iOS” 2020)</span>.</p>
+<p>应用程序 <code>icdab_pt</code> 演示了该问题。 <span class="citation" data-cites="icdabgithub">@icdabgithub</span>. <span class="citation" data-cites="jitios">@jitios</span>.</p>
 <pre><code>#define SIZE 4096
 #define SHM_NAME &quot;map-jit-memory&quot;
 
@@ -6092,7 +6093,7 @@ orks/CoreSymbolication.framework</code></pre>
 <pre><code>  std::__1::__split_buffer&lt;TRawRegion&lt;Pointer64&gt;,
  std::__1::allocator&lt;TRawRegion&lt;Pointer64&gt;
  &gt;&amp;&gt;::__split_buffer(&amp;var_38, r1, r2);</code></pre>
-<p>来自Apple Open Source C++ 库， <code>libcpp</code>。<span class="citation" data-cites="libcpp">(“Libcpp Apple Open Source” 2020)</span></p>
+<p>来自Apple Open Source C++ 库， <code>libcpp</code>。<span class="citation" data-cites="libcpp">@libcpp</span></p>
 <p>从历史上看，符号化一直是失败的根源，它是崩溃报告所依赖的主要子系统。</p>
 <h1 id="内存诊断">内存诊断</h1>
 <p>在本章中，我们着眼于基于不同的诊断选项来解决内存问题。</p>
@@ -6106,11 +6107,11 @@ orks/CoreSymbolication.framework</code></pre>
 <blockquote>
 <p>具体详见谷歌开源工具 https://github.com/google/sanitizers</p>
 </blockquote>
-<p>一个非常强大的工具可以协助进行内存诊断，称为 Address Sanitizer。(称为 <span class="citation" data-cites="asanchecker">Serebryany et al. (2012)</span>)</p>
+<p>一个非常强大的工具可以协助进行内存诊断，称为 Address Sanitizer。(称为 <span class="citation" data-cites="asanchecker">@asanchecker</span>)</p>
 <p>它需要我们为 Address Sanitizer 重新配置我们的 Scheme 设置来重编译代码：</p>
 <p><img src="screenshots/diagnostic_santizer_setting.png" /></p>
 <p>Address Sanitizer 会执行内存计数（成为影子内存）。他知道哪些内存位置被 “poisoned”。即，尚未分配（或已分配，然后释放）的内存。</p>
-<p><span class="citation" data-cites="wwdc2015_413">(“Advanced Debugging with Address Sanitizer” 2015)</span></p>
+<p><span class="citation" data-cites="wwdc2015_413">@wwdc2015_413</span></p>
 <p>Address Sanitizer 将直接利用编译器，因此在编译代码时，对内存的任何访问都需要对影子内存进行检查，以查看内存位置是否被释放。 如果发现这种现象，则会生成错误报告。</p>
 <p>这是一个非常强大的工具，因为它解决了两个最重要的内存错误类别：</p>
 <ol type="1">
@@ -6121,7 +6122,7 @@ orks/CoreSymbolication.framework</code></pre>
 <p>Address Sanitizer 可以进一步其他类型的内存问题，不过很少遇到：堆栈缓冲区溢出，全局变量溢出，C ++容器溢出以及返回错误后使用。</p>
 <p>这种便利的代价是我们的程序运行将会慢 2~5 倍。但在我们的持续集成系统中消除一些问题是值得的。</p>
 <h2 id="内存冲突示例">内存冲突示例</h2>
-<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。 <span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。 <span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <pre><code>- (void)overshootAllocated
 {
     uint8_t *memory = malloc(16);
@@ -6170,7 +6171,7 @@ Shadow byte legend
   Heap left redzone:       fa</code></pre>
 <p>从<code>[fa]</code> 中我们看到我们命中了 “redzone”（ <code>poisoned</code> 内存）的第一个字节。</p>
 <h2 id="堆内存释放后使用示例">（堆内存）释放后使用示例</h2>
-<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <pre><code>- (void)useAfterFree
 {
     uint8_t *memory = malloc(16);         // line 54
@@ -6232,7 +6233,7 @@ freed by thread T0 here:
 <h3 id="malloc-scribble">Malloc Scribble</h3>
 <p>Malloc Scribble 的目的是通过将 <code>malloc</code> 的或 <code>free</code> 的内存标记成固定的已知值来使内存错误的症状变得可预测。已分配的内存标记为<code>0xAA</code>而已释放的内存标记为 <code>0x55</code>。 它不会影响在堆栈上分配内存的行为。 它与Address Sanitizer不兼容。</p>
 <p>如果我们有一个应用程序每次在运行时都以不同的方式崩溃，那么 Malloc Scribble 是一个不错的选择。 它将有助于使崩溃可预测和可重复。</p>
-<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <pre><code>- (void)uninitializedMemory
 {
     uint8_t *source = malloc(16);
@@ -6251,7 +6252,7 @@ freed by thread T0 here:
 <p>僵尸对象的目的是在Objective-C 环境中的中检测 <code>NSObject</code>对象释放后使用的错误。特别是如果我们有一个使用手动引用计数的遗留代码库，则很容易过度释放对象。这意味着，通过指针传递消息可能会产生不可预测的效果。</p>
 <p>此设置只能在调试构建时进行，因为代码将不再释放对象。它的性能配置文件相当于泄漏所有应该被释放的对象。</p>
 <p>开启配置将使释放对象成为<code>NSZombie</code>对象。 发送给<code>NSZombie</code>对象的任何消息都会导致立即崩溃。 因此，每当有消息发送给已经释放的的对象时，我们都可以确保发生崩溃。</p>
-<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>思考在示例 <code>icdab_edge</code> 程序中的以下代码。<span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <pre><code>- (void)overReleasedObject
 {
     id vc = [[UIViewController alloc] init];
@@ -6280,11 +6281,11 @@ freed by thread T0 here:
 <li>按下 <code>Debug Memgraph</code> 按钮</li>
 <li>基于命令行工具进行分析，<em>File -&gt; Export Memory Graph…</em></li>
 </ol>
-<p>Xcode 内的 Memgraph 可视化工具功能全面，但令人生畏。 有一个有用的WWDC视频来介绍基本知识 <span class="citation" data-cites="wwdc2018_416">(“IOS Memory Deep Dive” 2018)</span></p>
+<p>Xcode 内的 Memgraph 可视化工具功能全面，但令人生畏。 有一个有用的WWDC视频来介绍基本知识 <span class="citation" data-cites="wwdc2018_416">@wwdc2018_416</span></p>
 <p>通常有太多的底层细节需要检查。使用图形工具的最佳方式是当我们对应用程序错误使用内存有一些假设时。</p>
 <h4 id="malloc-堆栈存储器示例检测循环引用">Malloc 堆栈存储器示例：检测循环引用</h4>
 <p>一个简单有效的成果是看看我们是否有内存泄漏。这些内存位置无法访问，不能释放。</p>
-<p>我们使用tvOS示例应用程序 <code>icdab_cycle</code> 来展示 Memgraph 如何发现循环引用。 <span class="citation" data-cites="icdabgithub">(“IOS Crash Dump Analysis Book Github Resources” 2018)</span></p>
+<p>我们使用tvOS示例应用程序 <code>icdab_cycle</code> 来展示 Memgraph 如何发现循环引用。 <span class="citation" data-cites="icdabgithub">@icdabgithub</span></p>
 <p>通过在 Scheme 设置中设置Malloc Stack ，我们启动应用程序，然后按Memgraph按钮，如下所示：</p>
 <p><img src="screenshots/memgraphbutton.png" /></p>
 <p>通过按下感叹号过滤器按钮，我们可以过滤为仅显示泄漏：</p>
@@ -6358,7 +6359,7 @@ func buildMediaLibrary() {
 <h3 id="动态链接器api的用法">动态链接器API的用法</h3>
 <p>有时程序是动态适应的或可扩展的。对于这样的程序，动态链接器 AP I 将以编程方式加载额外的代码模块。当应用程序的配置或部署出错时，可能会导致崩溃。</p>
 <p>要调试这些问题，需要设置 <code>Dynamic Linker API Usage</code> 。但这可能会产生很多信息，因此可能会在启动时间有限、速度较慢的平台上造成问题，比如第一代Apple Watch</p>
-<p>GitHub 上提供了使用动态链接器的示例应用程序。 <span class="citation" data-cites="dynamicloadingeg">(“Dynamic Loading Example” 2018)</span></p>
+<p>GitHub 上提供了使用动态链接器的示例应用程序。 <span class="citation" data-cites="dynamicloadingeg">@dynamicloadingeg</span></p>
 <p>启用后的输出为：</p>
 <pre><code>_dyld_get_image_slide(0x105545000)
 _dyld_register_func_for_add_image(0x10a21264c)
@@ -6392,95 +6393,6 @@ usr/lib/libBacktraceRecording.dylib
 .
 .
 .</code></pre>
-<h1 class="unnumbered" id="参考书目">参考书目</h1>
-<div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-macbookproT2">
-<p>“2018 Macbook Pros Bridge Os Error.” 2018. <a href="https://forums.macrumors.com/threads/2018-macbook-pros-crashing-with-bridge-os-error.2128976/">https://forums.macrumors.com/threads/2018-macbook-pros-crashing-with-bridge-os-error.2128976/</a>.</p>
-</div>
-<div id="ref-rosetta">
-<p>“About the Rosetta Translation Environment.” 2020. <a href="https://developer.apple.com/documentation/apple_silicon/about_the_rosetta_translation_environment#3616845">https://developer.apple.com/documentation/apple_silicon/about_the_rosetta_translation_environment#3616845</a>.</p>
-</div>
-<div id="ref-wwdc2015_413">
-<p>“Advanced Debugging with Address Sanitizer.” 2015. <a href="https://developer.apple.com/videos/play/wwdc2015/413/">https://developer.apple.com/videos/play/wwdc2015/413/</a>.</p>
-</div>
-<div id="ref-kepnertregoe">
-<p>“Analytic Troubleshooting.” 2018. <a href="https://www.kepner-tregoe.com">https://www.kepner-tregoe.com</a>.</p>
-</div>
-<div id="ref-appleinsiderimacpro">
-<p>“Apple’s T2 Chip May Be Behind iMac Pro, Macbook Pro Crashes.” 2018. <a href="https://appleinsider.com/articles/18/07/26/apples-t2-chip-could-be-behind-small-number-of-crashes-in-imac-pro-new-macbook-pro">https://appleinsider.com/articles/18/07/26/apples-t2-chip-could-be-behind-small-number-of-crashes-in-imac-pro-new-macbook-pro</a>.</p>
-</div>
-<div id="ref-tn2123">
-<p>“CrashReport Technote 2123.” 2004. <a href="https://developer.apple.com/library/archive/technotes/tn2004/tn2123.html">https://developer.apple.com/library/archive/technotes/tn2004/tn2123.html</a>.</p>
-</div>
-<div id="ref-intelrob">
-<p>“Debugging Processor Reorder Buffer Timeout: Guide.” 2018. <a href="https://www.intel.co.uk/content/www/uk/en/embedded/training/rob-timeout-debug-guide-paper.html?wapkw=caterr">https://www.intel.co.uk/content/www/uk/en/embedded/training/rob-timeout-debug-guide-paper.html?wapkw=caterr</a>.</p>
-</div>
-<div id="ref-apple-sysdiag">
-<p>“Diagnostic Profiles and Logs.” 2018. <a href="https://developer.apple.com/bug-reporting/profiles-and-logs/">https://developer.apple.com/bug-reporting/profiles-and-logs/</a>.</p>
-</div>
-<div id="ref-dynamicloadingeg">
-<p>“Dynamic Loading Example.” 2018. <a href="https://github.com/patriknyblad/ios-runtime-loading-dynamic-framework.git">https://github.com/patriknyblad/ios-runtime-loading-dynamic-framework.git</a>.</p>
-</div>
-<div id="ref-iospac">
-<p>“Examining Pointer Authentication on the iPhone Xs.” 2019. <a href="https://googleprojectzero.blogspot.com/2019/02/examining-pointer-authentication-on.html">https://googleprojectzero.blogspot.com/2019/02/examining-pointer-authentication-on.html</a>.</p>
-</div>
-<div id="ref-transitive">
-<p>“Heroes of Software Engineering - the Men and Women at Transitive.” 2020. <a href="https://www.software.ac.uk/blog/2016-09-30-heroes-software-engineering-men-and-women-transitive">https://www.software.ac.uk/blog/2016-09-30-heroes-software-engineering-men-and-women-transitive</a>.</p>
-</div>
-<div id="ref-jetsamreport">
-<p>“Identifying High-Memory Use with Jetsam Event Reports.” 2020. <a href="https://developer.apple.com/documentation/xcode/diagnosing_issues_using_crash_reports_and_device_logs/identifying_high-memory_use_with_jetsam_event_reports">https://developer.apple.com/documentation/xcode/diagnosing_issues_using_crash_reports_and_device_logs/identifying_high-memory_use_with_jetsam_event_reports</a>.</p>
-</div>
-<div id="ref-impropersockets">
-<p>“Improper Use of Bsd Sockets.” 2018. <a href="https://stackoverflow.com/a/13790353/2715565">https://stackoverflow.com/a/13790353/2715565</a>.</p>
-</div>
-<div id="ref-icdabgithub">
-<p>“IOS Crash Dump Analysis Book Github Resources.” 2018. <a href="https://github.com/faisalmemon/ios-crash-dump-analysis-book">https://github.com/faisalmemon/ios-crash-dump-analysis-book</a>.</p>
-</div>
-<div id="ref-3rdpartycrashtools">
-<p>“IOS Crash Reporting Tools.” 2017. <a href="https://rollout.io/blog/ios-crash-reporting-tools-2017-update/">https://rollout.io/blog/ios-crash-reporting-tools-2017-update/</a>.</p>
-</div>
-<div id="ref-wwdc2018_416">
-<p>“IOS Memory Deep Dive.” 2018. <a href="https://devstreaming-cdn.apple.com/videos/wwdc/2018/416n2fmzz0fz88f/416/416_ios_memory_deep_dive.pdf?dl=1">https://devstreaming-cdn.apple.com/videos/wwdc/2018/416n2fmzz0fz88f/416/416_ios_memory_deep_dive.pdf?dl=1</a>.</p>
-</div>
-<div id="ref-jitios">
-<p>“Jailed Just in Time Compilation on iOS.” 2020. <a href="https://saagarjha.com/blog/2020/02/23/jailed-just-in-time-compilation-on-ios/">https://saagarjha.com/blog/2020/02/23/jailed-just-in-time-compilation-on-ios/</a>.</p>
-</div>
-<div id="ref-libcpp">
-<p>“Libcpp Apple Open Source.” 2020. <a href="https://opensource.apple.com/source/libcpp/libcpp-19/include/__split_buffer.auto.html">https://opensource.apple.com/source/libcpp/libcpp-19/include/__split_buffer.auto.html</a>.</p>
-</div>
-<div id="ref-libdispatchtar">
-<p>“Libdispatch Open Source.” 2018. <a href="https://opensource.apple.com/tarballs/libdispatch/">https://opensource.apple.com/tarballs/libdispatch/</a>.</p>
-</div>
-<div id="ref-macherror">
-<p>“Making Sense of I/O Kit Error Codes.” 2018. <a href="https://developer.apple.com/library/archive/qa/qa1075/_index.html">https://developer.apple.com/library/archive/qa/qa1075/_index.html</a>.</p>
-</div>
-<div id="ref-cfconstantstring">
-<p>“NSCFConstantString in Corefoundation.framework.” 2018. <a href="https://github.com/JaviSoto/iOS10-Runtime-Headers/blob/master/Frameworks/CoreFoundation.framework/__NSCFConstantString.h">https://github.com/JaviSoto/iOS10-Runtime-Headers/blob/master/Frameworks/CoreFoundation.framework/__NSCFConstantString.h</a>.</p>
-</div>
-<div id="ref-dispatchdata">
-<p>“NSDispatchData.h in Foundation.framework.” 2018. <a href="https://github.com/JaviSoto/iOS10-Runtime-Headers/blob/master/Frameworks/Foundation.framework/_NSDispatchData.h%0A">https://github.com/JaviSoto/iOS10-Runtime-Headers/blob/master/Frameworks/Foundation.framework/_NSDispatchData.h%0A</a>.</p>
-</div>
-<div id="ref-panicbook">
-<p><em>Panic! Unix System Crash Dump Analysis</em>. 1995. 1st ed. Vol. 1. 0-13-149386-8. Prentice Hall.</p>
-</div>
-<div id="ref-plcrashreporter">
-<p>“Plausible Labs Crash Reporter.” 2018. <a href="https://github.com/plausiblelabs/plcrashreporter">https://github.com/plausiblelabs/plcrashreporter</a>.</p>
-</div>
-<div id="ref-rosettaPortingGuide">
-<p>“Porting Your macOS Apps to Apple Silicon.” 2020. <a href="https://developer.apple.com/documentation/xcode/porting_your_macos_apps_to_apple_silicon">https://developer.apple.com/documentation/xcode/porting_your_macos_apps_to_apple_silicon</a>.</p>
-</div>
-<div id="ref-iosOnMac">
-<p>“Running Your iOS Apps on macOS.” 2020. <a href="https://developer.apple.com/documentation/apple_silicon/running_your_ios_apps_on_macos">https://developer.apple.com/documentation/apple_silicon/running_your_ios_apps_on_macos</a>.</p>
-</div>
-<div id="ref-asanchecker">
-<p>Serebryany, Konstantin, Derek Bruening, Alexander Potapenko, and Dmitry Vyukov. 2012. “AddressSanitizer: A Fast Address Sanity Checker.” In <em>USENIX Atc 2012</em>. <a href="https://www.usenix.org/conference/usenixfederatedconferencesweek/addresssanitizer-fast-address-sanity-checker">https://www.usenix.org/conference/usenixfederatedconferencesweek/addresssanitizer-fast-address-sanity-checker</a>.</p>
-</div>
-<div id="ref-rosetta_news">
-<p>“The Brains Behind Apple’s Rosetta: Transitive.” 2020. <a href="https://www.cnet.com/news/the-brains-behind-apples-rosetta-transitive/">https://www.cnet.com/news/the-brains-behind-apples-rosetta-transitive/</a>.</p>
-</div>
-<div id="ref-threadstatus">
-<p>“Thread Status Values in Mach.” 2018. <a href="https://github.com/apple/darwin-xnu/blob/0a798f6738bc1db01281fc08ae024145e84df927/osfmk/mach/arm/thread_status.h">https://github.com/apple/darwin-xnu/blob/0a798f6738bc1db01281fc08ae024145e84df927/osfmk/mach/arm/thread_status.h</a>.</p>
-</div>
-</div>
+<h1 id="参考书目">参考书目</h1>
 </body>
 </html>
